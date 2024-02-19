@@ -1,28 +1,65 @@
+function setUp(){
+    createCanvas(600,700);
+}
+
 let starX = [];
 let starY = [];
 let starAlpha = [];
 
-function earth(){
+function planets(){
+    //planet
     fill(40,122,184);
     ellipse(500,100,250);
-}
 
-function moon (){
+    //moon
     fill(194,197,204);
-    ellipse(300,710,600); 
+    ellipse(300,900,600); 
 
     fill("darkgrey");
-    ellipse(450,500,30, 25); 
-    ellipse(380,460,20);
-    ellipse(110,520,17, 15);
+    ellipse(450,700,30, 25); 
+    ellipse(380,670,20);
+    ellipse(110,720,17, 15);
     stroke("lightgrey");
     strokeWeight(9);
 
-    ellipse(190,520,100,80);
+    ellipse(190,700,100,80);
     noStroke();
 }
 
-function skull(){
+
+    //rocket
+function rocket(x,y){
+    push();
+    translate(x,y);
+    //legs
+    fill(157,193,131);
+    rect(240,330,30,30);
+    triangle(240,332,233,400,250,360);
+    rect(330,330,30,30);
+    triangle(360,332,365,400,350,360);
+
+    fill(87,88,87);
+    arc(300,400,60,260,PI,0,CHORD);
+
+    fill("darkgrey");
+    arc(300,385,80,200,PI,0,CHORD);
+
+    fill(150,123,182);
+   arc(300,360,100,260,PI,0,CHORD);
+
+   //window
+   fill(35,46,48);
+   stroke("darkgrey");
+    strokeWeight(8);
+   ellipse(300,300,60);
+
+   noStroke();
+   //top point
+   fill(157,193,131);
+   triangle(273,250,327,250,299,205);
+   //third leg
+   triangle(299,408,288,346,312,346);
+
     //skull
     scale(0.5); 
     translate(450,520);
@@ -47,37 +84,18 @@ function skull(){
     fill(173,216,230,160);
     noStroke();
     ellipse(150,80,105);
-    }
-
-    //rocket
-function rocket(){
-    fill(87,88,87);
-    arc(300,400,60,260,PI,0,CHORD);
-
-    fill("darkgrey");
-    arc(300,385,80,200,PI,0,CHORD);
-
-    fill(150,123,182);
-   arc(300,360,100,260,PI,0,CHORD);
-
-   fill(35,46,48);
-   stroke("darkgrey");
-    strokeWeight(8);
-   ellipse(300,300,60);
-
-   noStroke();
-   fill(157,193,131);
-   triangle(273,250,327,250,299,205);
-
-
+    pop();
 }
 
-function flame(){
+function flame(x,y){
+    push();
+    translate(x,y);
     fill("orange");
-    ellipse(300,400,50);
+    ellipse(300,400,50,70);
 
     fill("yellow");
-    ellipse(300,400,30);
+    ellipse(300,400,30,35);
+    pop();
 }
 
 for(let i= 0; i < 500; i++){
@@ -90,6 +108,11 @@ for(let i= 0; i < 500; i++){
     starAlpha.push(alpha);
 }
 
+let rocketY = 100;
+let velocity = 0.5;
+const acceleration = 0.1;
+let gameIsRunning = true;
+
 function draw (){
     noStroke();
     background(35,36,48) ;
@@ -99,12 +122,31 @@ function draw (){
     ellipse(starX[index], starY[index], 2);
     starAlpha[index] = starAlpha[index] + 0.04;
     }
+
+    planets();
+    rocket(0,rocketY);
+
+    if(gameIsRunning === true){
+        
+        rocketY = rocketY + velocity;
+        velocity = velocity + acceleration;
+        
+        if (mouseIsPressed){
+            velocity = velocity -0.2;
+            flame(0,rocketY);
+            
+        }
     
-    earth();
-    moon();
-    flame();
-    rocket();
-    skull();  
-  
-  
+        if(rocketY === 450){
+            gameIsRunning = false;
+            console.log("You Win");
+        }
+    }
 }
+
+
+
+
+
+
+
