@@ -6,24 +6,46 @@ let starX = [];
 let starY = [];
 let starAlpha = [];
 
-function planets(){
-    //planet
-    fill(40,122,184);
-    ellipse(500,100,250);
+function asteroid(x,y){
+    push();
+    translate(x,y);
+    fill(255,211,0,120);
+    ellipse(300,200,150,145);
+    stroke(255,211,0,120);
+    strokeWeight(55);
+    line(300,155,382,155);
+    line(300,205,400,205);
+    line(300,245,365,245);
 
-    //moon
-    fill(194,197,204);
-    ellipse(300,900,600); 
-
-    fill("darkgrey");
-    ellipse(450,700,30, 25); 
-    ellipse(380,670,20);
-    ellipse(110,720,17, 15);
-    stroke("lightgrey");
-    strokeWeight(9);
-
-    ellipse(190,700,100,80);
     noStroke();
+    fill("lightgreen");
+    stroke("lightgreen");
+    strokeWeight(35);
+    line(300,160,370,160);
+    line(300,205,385,205);
+    line(300,245,365,245);
+    noStroke();
+    ellipse(305,200,140,130);
+
+    fill("green");
+    ellipse(300,200,100);
+   pop();
+}
+
+function moon(){
+ //moon
+ fill(194,197,204);
+ ellipse(300,900,600); 
+
+ fill("darkgrey");
+ ellipse(450,700,30, 25); 
+ ellipse(380,670,20);
+ ellipse(110,720,17, 15);
+ stroke("lightgrey");
+ strokeWeight(9);
+
+ ellipse(190,700,100,80);
+ noStroke();
 }
 
 
@@ -98,6 +120,19 @@ function flame(x,y){
     pop();
 }
 
+function platform (){
+    stroke(0,0,0);
+    strokeWeight(10);
+    line(209,619,230,554);
+    line(372,556,400,619);
+    line(301,556,304,619);
+
+    noStroke();
+    fill(40,122,184);
+    rect(225,550,150,10);
+}
+
+
 for(let i= 0; i < 500; i++){
     const x = Math.floor(Math.random() * width);
     const y = Math.floor(Math.random() * height);
@@ -110,12 +145,13 @@ for(let i= 0; i < 500; i++){
 
 let rocketY = 100;
 let velocity = 0.5;
+let asteroidX = 1000;
 const acceleration = 0.1;
 let gameIsRunning = true;
 
 function draw (){
     noStroke();
-    background(35,36,48) ;
+    background(35,36,48);
 
     for (let index in starX){
     fill(255,255,255, Math.abs(Math.sin(starAlpha[index]))*255);
@@ -123,10 +159,19 @@ function draw (){
     starAlpha[index] = starAlpha[index] + 0.04;
     }
 
-    planets();
+    platform();
+    moon();
     rocket(0,rocketY);
 
     if(gameIsRunning === true){
+    
+        asteroidX = asteroidX - 15;
+
+        if (asteroidX < -100){
+            asteroidX = width;
+        }
+
+         }
         
         rocketY = rocketY + velocity;
         velocity = velocity + acceleration;
@@ -137,12 +182,21 @@ function draw (){
             
         }
     
-        if(rocketY === 450){
+        if(rocketY === 225){
             gameIsRunning = false;
             console.log("You Win");
         }
+        scale(0.5);
+        asteroid(asteroidX,350);
     }
-}
+
+
+
+
+    
+
+
+
 
 
 
