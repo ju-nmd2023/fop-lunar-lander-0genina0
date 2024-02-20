@@ -1,5 +1,5 @@
 function setUp(){
-    createCanvas(600,700);
+    createCanvas(500,700);
 }
 
 let starX = [];
@@ -29,7 +29,7 @@ function asteroid(x,y){
 
     fill("green");
     ellipse(300,200,100);
-   pop();
+    pop();
 }
 
 function moon(){
@@ -60,6 +60,7 @@ function rocket(x,y){
     rect(330,330,30,30);
     triangle(360,332,365,400,350,360);
 
+    //body of
     fill(87,88,87);
     arc(300,400,60,260,PI,0,CHORD);
 
@@ -144,51 +145,94 @@ for(let i= 0; i < 500; i++){
 }
 
 let rocketY = 100;
-let velocity = 0.5;
-let asteroidX = 1000;
+let velocity = 0.8;
+let asteroidX = -100;
 const acceleration = 0.1;
-let gameIsRunning = true;
+
+let startGame = true;
+let gameIsRunning = false;
+let gameWon = false;
+let gameOver = false;
 
 function draw (){
     noStroke();
     background(35,36,48);
-
+//blinking stars
     for (let index in starX){
     fill(255,255,255, Math.abs(Math.sin(starAlpha[index]))*255);
     ellipse(starX[index], starY[index], 2);
     starAlpha[index] = starAlpha[index] + 0.04;
     }
 
-    platform();
-    moon();
-    rocket(0,rocketY);
+    if (startGame){
+        gameIsRunning = false;
+        textSize(80);
+        fill("yellow");
+        stroke("purple");
+        strokeWeight(6);
+        text("Loonie Landers",30,310);
+        noStroke(); 
+
+        if(keyIsPressed && key === " "){
+            gameIsRunning = true;
+            startGame = false;
+        }
+    }
+
+    if(rocketY > 550 && velocity > 3){
+        gameIsRunning = false;
+        gameOver = true;
+    }
 
     if(gameIsRunning === true){
     
-        asteroidX = asteroidX - 15;
+        rocket(0,rocketY);
 
-        if (asteroidX < -100){
-            asteroidX = width;
-        }
-
-         }
-        
         rocketY = rocketY + velocity;
         velocity = velocity + acceleration;
         
-        if (mouseIsPressed){
-            velocity = velocity -0.2;
+        if (keyIsPressed && key === " "){
+            velocity = velocity -0.4  ;
             flame(0,rocketY);
-            
         }
-    
-        if(rocketY === 225){
-            gameIsRunning = false;
-            console.log("You Win");
-        }
-        scale(0.5);
-        asteroid(asteroidX,350);
+
+         }
+
+    if(gameWon){
+        gameOver = false;
+
     }
+
+    platform();
+    moon();
+
+    //moving asteroids even when on start page 
+    scale(0.5);
+    asteroid(asteroidX + 1100,20);
+    asteroid(asteroidX + 300,600);
+
+    asteroidX = asteroidX - 9;
+
+    if (asteroidX < -1500){
+        asteroidX = width;
+    }
+
+       
+    }
+
+
+
+
+      
+
+
+           
+             
+
+
+
+
+
 
 
 
