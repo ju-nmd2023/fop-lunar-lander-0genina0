@@ -133,6 +133,25 @@ function platform (){
     rect(225,550,150,10);
 }
 
+function crash(){
+    fill("yellow");
+    ellipse(300,450,80,65);
+    triangle(263,450,245,404,297,421);
+    triangle(267,436,226,471,295,467);
+    triangle(269,466,264,519,315,478);
+    triangle(298,485,364,480,339,448);
+    triangle(291,420,333,374,330,433);
+    triangle(327,428,374,427,333,460);
+    fill("orange");
+    ellipse(300,450,80,65);
+    triangle(263,450,245,404,297,421);
+    triangle(267,436,226,471,295,467);
+    triangle(269,466,264,519,315,478);
+    triangle(298,485,364,480,339,448);
+    triangle(291,420,333,374,330,433);
+    triangle(327,428,374,427,333,460);
+}
+
 
 for(let i= 0; i < 500; i++){
     const x = Math.floor(Math.random() * width);
@@ -164,7 +183,7 @@ function draw (){
     ellipse(starX[index], starY[index], 2);
     starAlpha[index] = starAlpha[index] + 0.04;
     }
-
+    crash();
     platform();
     moon(); 
 
@@ -182,6 +201,11 @@ function draw (){
         }
     }
 
+    if (rocketY >= 150 && velocity < 2){
+        gameIsRunning = false;
+        gameWon = true;
+     }
+
     if (gameWon){
         startGame = false;
         gameOver = false;
@@ -192,7 +216,37 @@ function draw (){
         text("YOU WIN!",150,310);
         noStroke(); 
         if (mouseIsPressed){
-            gameStart = true;
+            startGame = true;
+            gameIsRunning = false;
+            gameOver = false;
+            gameWon = false;
+            rocketY = 50;
+            velocity = 0.8; 
+        }
+    }
+
+    if (rocketY >= 150 && velocity > 2){
+        gameIsRunning = false;
+        gameWon = false;
+        gameOver = true;
+     }
+
+    if(gameOver){
+        startGame = false;
+        gameWon = false;
+        gameIsRunning = false; 
+        textSize(65);
+        fill("yellow");
+        strokeWeight(6);
+        text("GAME OVER",120,310);
+        noStroke(); 
+        if (mouseIsPressed){
+            startGame = true;
+            gameIsRunning = false;
+            gameOver = false;
+            gameWon = false;
+            rocketY = 50;
+            velocity = 0.8; 
         }
     }
     
@@ -210,11 +264,6 @@ function draw (){
     
     }
 
-
-    if (rocketY = 150 && velocity < 2){
-        gameIsRunning = false;
-        gameWon = true;
-     }
 
 
     //moving asteroids even when on start page 
