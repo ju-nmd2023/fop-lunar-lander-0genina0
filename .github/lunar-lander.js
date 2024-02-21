@@ -133,7 +133,7 @@ function platform (){
     rect(225,550,150,10);
 }
 
-function crash(){
+function crash(x,y){
     fill("yellow");
     ellipse(300,450,80,65);
     triangle(263,450,245,404,297,421);
@@ -143,13 +143,13 @@ function crash(){
     triangle(291,420,333,374,330,433);
     triangle(327,428,374,427,333,460);
     fill("orange");
-    ellipse(300,450,80,65);
-    triangle(263,450,245,404,297,421);
-    triangle(267,436,226,471,295,467);
-    triangle(269,466,264,519,315,478);
-    triangle(298,485,364,480,339,448);
-    triangle(291,420,333,374,330,433);
-    triangle(327,428,374,427,333,460);
+    ellipse(300,450,60,50);
+    triangle(273,460,250,410,295,425);
+    triangle(280,436,242,465,295,467);
+    triangle(275,466,270,510,312,468);
+    triangle(300,478,352,475,335,448);
+    triangle(290,430,330,384,325,435);
+    triangle(320,435,360,430,333,455);
 }
 
 
@@ -165,7 +165,7 @@ for(let i= 0; i < 500; i++){
 
 let rocketY = 50;
 let velocity = 0.8;
-let asteroidX = -100;
+let asteroidX = width;
 let asteroidY = 10;
 const acceleration = 0.1;
 
@@ -183,7 +183,7 @@ function draw (){
     ellipse(starX[index], starY[index], 2);
     starAlpha[index] = starAlpha[index] + 0.04;
     }
-    crash();
+
     platform();
     moon(); 
 
@@ -248,6 +248,8 @@ function draw (){
             rocketY = 50;
             velocity = 0.8; 
         }
+
+        crash();
     }
     
     if(gameIsRunning === true){
