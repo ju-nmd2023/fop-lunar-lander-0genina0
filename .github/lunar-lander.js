@@ -144,9 +144,10 @@ for(let i= 0; i < 500; i++){
     starAlpha.push(alpha);
 }
 
-let rocketY = 100;
+let rocketY = 50;
 let velocity = 0.8;
 let asteroidX = -100;
+let asteroidY = 10;
 const acceleration = 0.1;
 
 let startGame = true;
@@ -157,20 +158,22 @@ let gameOver = false;
 function draw (){
     noStroke();
     background(35,36,48);
-//blinking stars
+    //blinking stars
     for (let index in starX){
     fill(255,255,255, Math.abs(Math.sin(starAlpha[index]))*255);
     ellipse(starX[index], starY[index], 2);
     starAlpha[index] = starAlpha[index] + 0.04;
     }
 
+    platform();
+    moon(); 
+
     if (startGame){
         gameIsRunning = false;
-        textSize(80);
+        textSize(65);
         fill("yellow");
-        stroke("purple");
         strokeWeight(6);
-        text("Loonie Landers",30,310);
+        text("LOONIE LANDERS",10,310);
         noStroke(); 
 
         if(keyIsPressed && key === " "){
@@ -179,14 +182,21 @@ function draw (){
         }
     }
 
-    if(rocketY > 550 && velocity > 3){
+    if (gameWon){
+        startGame = false;
+        gameOver = false;
         gameIsRunning = false;
-        gameOver = true;
+        textSize(65);
+        fill("yellow");
+        strokeWeight(6);
+        text("YOU WIN!",150,310);
+        noStroke(); 
+        if (mouseIsPressed){
+            gameStart = true;
+        }
     }
-
-    if(gameIsRunning === true){
     
-        rocket(0,rocketY);
+    if(gameIsRunning === true){
 
         rocketY = rocketY + velocity;
         velocity = velocity + acceleration;
@@ -196,15 +206,16 @@ function draw (){
             flame(0,rocketY);
         }
 
-         }
-
-    if(gameWon){
-        gameOver = false;
-
+        rocket(0,rocketY);
+    
     }
 
-    platform();
-    moon();
+
+    if (rocketY = 150 && velocity < 2){
+        gameIsRunning = false;
+        gameWon = true;
+     }
+
 
     //moving asteroids even when on start page 
     scale(0.5);
@@ -215,36 +226,8 @@ function draw (){
 
     if (asteroidX < -1500){
         asteroidX = width;
+    }  
     }
-
-       
-    }
-
-
-
-
-      
-
-
-           
-             
-
-
-
-
-
-
-
 
 
     
-
-
-
-
-
-
-
-
-
-
