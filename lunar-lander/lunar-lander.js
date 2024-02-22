@@ -1,7 +1,10 @@
 function setUp(){
-    createCanvas(500,700);
+    allignContent(center);
+    createCanvas(700,900);
 }
 
+let width = 1000;
+let height = 1200;
 let starX = [];
 let starY = [];
 let starAlpha = [];
@@ -184,6 +187,17 @@ function draw (){
     starAlpha[index] = starAlpha[index] + 0.04;
     }
 
+    //moving asteroids even when on start page 
+    scale(0.5);
+    asteroid(asteroidX + 1100,20);
+    asteroid(asteroidX + 300,600);
+    scale(2);
+
+    asteroidX = asteroidX - 6;
+
+    if (asteroidX < -1500){
+        asteroidX = width;
+    } 
     platform();
     moon(); 
 
@@ -191,9 +205,10 @@ function draw (){
         gameIsRunning = false;
         textSize(65);
         fill("yellow");
-        strokeWeight(6);
         text("LOONIE LANDERS",10,310);
-        noStroke(); 
+        textSize(25);
+        fill("white");
+        text("press space to start",185,355);
 
         if(keyIsPressed && key === " "){
             gameIsRunning = true;
@@ -201,6 +216,7 @@ function draw (){
         }
     }
 
+    //to win the game
     if (rocketY >= 150 && velocity < 2){
         gameIsRunning = false;
         gameWon = true;
@@ -225,6 +241,7 @@ function draw (){
         }
     }
 
+    //to lose the game
     if (rocketY >= 150 && velocity > 2){
         gameIsRunning = false;
         gameWon = false;
@@ -252,32 +269,20 @@ function draw (){
         crash();
     }
     
+    //making rocket move when space is pressed
     if(gameIsRunning === true){
 
         rocketY = rocketY + velocity;
         velocity = velocity + acceleration;
         
         if (keyIsPressed && key === " "){
-            velocity = velocity -0.4  ;
+            velocity = velocity -0.25;
             flame(0,rocketY);
         }
 
         rocket(0,rocketY);
     
-    }
-
-
-
-    //moving asteroids even when on start page 
-    scale(0.5);
-    asteroid(asteroidX + 1100,20);
-    asteroid(asteroidX + 300,600);
-
-    asteroidX = asteroidX - 9;
-
-    if (asteroidX < -1500){
-        asteroidX = width;
-    }  
+    } 
     }
 
 
