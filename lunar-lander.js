@@ -208,7 +208,7 @@ function draw (){
         text("LOONIE LANDERS",10,310);
         textSize(25);
         fill("white");
-        text("press space to start",185,355);
+        text("press space to start",175,355);
 
         if(keyIsPressed && key === " "){
             gameIsRunning = true;
@@ -231,7 +231,7 @@ function draw (){
         text("YOU WIN!",150,310);
         textSize(25);
         fill("white");
-        text("press with mouse to restart",185,355);
+        text("press with mouse to restart",165,355);
     
         if (mouseIsPressed){
             startGame = true;
@@ -259,7 +259,7 @@ function draw (){
         text("GAME OVER",120,310);
         textSize(25);
         fill("white");
-        text("press with mouse to restart",185,355);
+        text("press with mouse to restart",170,355);
         if (mouseIsPressed){
             startGame = true;
             gameIsRunning = false;
