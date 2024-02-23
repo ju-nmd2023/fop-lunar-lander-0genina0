@@ -180,7 +180,7 @@ let gameOver = false;
 function draw (){
     noStroke();
     background(35,36,48);
-    //blinking stars
+    //blinking stars from garrits video
     for (let index in starX){
     fill(255,255,255, Math.abs(Math.sin(starAlpha[index]))*255);
     ellipse(starX[index], starY[index], 2);
@@ -228,9 +228,11 @@ function draw (){
         gameIsRunning = false;
         textSize(65);
         fill("yellow");
-        strokeWeight(6);
         text("YOU WIN!",150,310);
-        noStroke(); 
+        textSize(25);
+        fill("white");
+        text("press with mouse to restart",185,355);
+    
         if (mouseIsPressed){
             startGame = true;
             gameIsRunning = false;
@@ -254,9 +256,10 @@ function draw (){
         gameIsRunning = false; 
         textSize(65);
         fill("yellow");
-        strokeWeight(6);
         text("GAME OVER",120,310);
-        noStroke(); 
+        textSize(25);
+        fill("white");
+        text("press with mouse to restart",185,355);
         if (mouseIsPressed){
             startGame = true;
             gameIsRunning = false;
